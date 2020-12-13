@@ -29,15 +29,12 @@ namespace Hospital.WindowsForm
             MyContext context = new MyContext();
             foreach (var item in context.Doctors.Include(x => x.Department))
             {
-                
-                string str = $"{item.Id} {item.LastName} {item.FirstName} - " +
-                    $"{item.Stage} - {item.Department.Name}";
                 object[] row = {
-                    str
+                    $"{item.LastName} {item.FirstName}",
+                    $"{item.Stage}",
+                    $"{item.Department.Name}"
                 };
                 dataGridView1.Rows.Add(row);
-
-
             }
         }
     }
