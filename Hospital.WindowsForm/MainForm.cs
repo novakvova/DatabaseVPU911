@@ -12,10 +12,16 @@ using System.Windows.Forms;
 
 namespace Hospital.WindowsForm
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        bool isAuth = false;
+        public MainForm()
         {
+            LoginForm login_dlg = new LoginForm();
+            if (login_dlg.ShowDialog() == DialogResult.OK)
+            {
+                isAuth = true;
+            }
             InitializeComponent();
         }
 
@@ -24,17 +30,24 @@ namespace Hospital.WindowsForm
             MessageBox.Show("Hello");
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            MyContext context = new MyContext();
-            foreach (var item in context.Doctors.Include(x => x.Department))
+            if (!isAuth)
             {
-                object[] row = {
+                Application.Exit();
+            }
+            else
+            {
+                MyContext context = new MyContext();
+                foreach (var item in context.Doctors.Include(x => x.Department))
+                {
+                    object[] row = {
                     $"{item.LastName} {item.FirstName}",
                     $"{item.Stage}",
                     $"{item.Department.Name}"
                 };
-                dataGridView1.Rows.Add(row);
+                    dataGridView1.Rows.Add(row);
+                }
             }
         }
     }

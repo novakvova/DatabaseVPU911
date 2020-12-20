@@ -17,6 +17,12 @@ namespace Hospital.DAL
         [Required, StringLength(100)]
         public string FirstName { get; set; }
 
+        [Required, StringLength(50)]
+        public string Login { get; set; }
+
+        [Required, StringLength(250)]
+        public string Password { get; set; }
+
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
 

@@ -3,18 +3,34 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hospital.DAL.Migrations
 {
-    public partial class AddtblDoctors : Migration
+    public partial class Addalltabels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "tblDepartments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
+                    NumberCabinet = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tblDepartments", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "tblDoctors",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     LastName = table.Column<string>(maxLength: 100, nullable: false),
                     FirstName = table.Column<string>(maxLength: 100, nullable: false),
+                    Login = table.Column<string>(maxLength: 50, nullable: false),
+                    Password = table.Column<string>(maxLength: 250, nullable: false),
                     DepartmentId = table.Column<int>(nullable: false),
                     Stage = table.Column<int>(nullable: false)
                 },
@@ -39,6 +55,9 @@ namespace Hospital.DAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "tblDoctors");
+
+            migrationBuilder.DropTable(
+                name: "tblDepartments");
         }
     }
 }
