@@ -1,5 +1,6 @@
 ﻿using Hospital.DAL;
 using Hospital.DAL.Helpers;
+using Hospital.WindowsForm.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,8 +32,13 @@ namespace Hospital.WindowsForm
             if(doctor!=null)
             {
                 var passwordHash = doctor.Password;
-                if(PasswordManager.Verify(password, passwordHash))
+                if (PasswordManager.Verify(password, passwordHash))
+                {
+                    DoctorLogin.Id = doctor.Id;
+                    DoctorLogin.Image = doctor.Image;
+                    //DoctorAuth = doctor;
                     this.DialogResult = DialogResult.OK;
+                }
                 else
                     MessageBox.Show("Думайте...");
             }

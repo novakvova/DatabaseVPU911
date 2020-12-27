@@ -34,12 +34,15 @@ namespace Hospital.WindowsForm
             this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColStage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            this.btnShowProfile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(590, 341);
+            this.button1.Location = new System.Drawing.Point(922, 460);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 63);
             this.button1.TabIndex = 0;
@@ -54,7 +57,7 @@ namespace Hospital.WindowsForm
             this.ColName,
             this.ColStage,
             this.ColDepartment});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 24);
+            this.dataGridView1.Location = new System.Drawing.Point(344, 143);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
@@ -82,11 +85,34 @@ namespace Hospital.WindowsForm
             this.ColDepartment.Name = "ColDepartment";
             this.ColDepartment.Width = 200;
             // 
+            // pbImage
+            // 
+            this.pbImage.Location = new System.Drawing.Point(41, 70);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(211, 211);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 2;
+            this.pbImage.TabStop = false;
+            // 
+            // btnShowProfile
+            // 
+            this.btnShowProfile.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnShowProfile.ForeColor = System.Drawing.Color.Blue;
+            this.btnShowProfile.Location = new System.Drawing.Point(41, 472);
+            this.btnShowProfile.Name = "btnShowProfile";
+            this.btnShowProfile.Size = new System.Drawing.Size(173, 51);
+            this.btnShowProfile.TabIndex = 3;
+            this.btnShowProfile.Text = "Профіль";
+            this.btnShowProfile.UseVisualStyleBackColor = true;
+            this.btnShowProfile.Click += new System.EventHandler(this.btnShowProfile_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1176, 563);
+            this.Controls.Add(this.btnShowProfile);
+            this.Controls.Add(this.pbImage);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Name = "MainForm";
@@ -94,6 +120,7 @@ namespace Hospital.WindowsForm
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -105,6 +132,8 @@ namespace Hospital.WindowsForm
         private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDepartment;
+        private System.Windows.Forms.PictureBox pbImage;
+        private System.Windows.Forms.Button btnShowProfile;
     }
 }
 

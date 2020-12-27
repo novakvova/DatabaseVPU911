@@ -49,6 +49,7 @@ namespace Hospital.DAL
                         Login="vladik",
                         Password= PasswordManager.HashPassword("123456"),
                         Stage=15,
+                        Image="1.jpg",
                         Department= context.Departments
                         .FirstOrDefault(x=>x.Name== "Хіругрія")
                     });
@@ -61,6 +62,7 @@ namespace Hospital.DAL
                         LastName = "Лісовик",
                         Login = "beaver",
                         Password = PasswordManager.HashPassword("xvost"),
+                        Image="3.jpg",
                         Stage = 25,
                         Department = context.Departments
                         .FirstOrDefault(x => x.Name == "Інфекційне")
