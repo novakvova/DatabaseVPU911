@@ -40,7 +40,12 @@ namespace Hospital.WindowsForm
                 var fileSave = Path.Combine(dir, "images", imageName);
                 File.Copy(dlg.FileName, fileSave);
                 pbAvatar.Image = Image.FromFile($"images/{imageName}");
-                //dlg.FileName
+                using (MyContext context = new MyContext())
+                {
+                    var doctor = context.Doctors.SingleOrDefault(x => x.Id == DoctorLogin.Id);
+                    doctor.Image = imageName;
+                    context.SaveChanges();
+                }
             }
         }
     }
