@@ -76,6 +76,9 @@ namespace Hospital.WindowsForm
             this.btnLeft = new System.Windows.Forms.Button();
             this.lblRange = new System.Windows.Forms.Label();
             this.cbCountShowOnePage = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.gbBoxButtons = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.headMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -83,7 +86,7 @@ namespace Hospital.WindowsForm
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnSearch.Location = new System.Drawing.Point(861, 32);
+            this.btnSearch.Location = new System.Drawing.Point(861, 54);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(145, 47);
@@ -409,7 +412,7 @@ namespace Hospital.WindowsForm
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(307, 40);
+            this.label2.Location = new System.Drawing.Point(566, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 21);
             this.label2.TabIndex = 6;
@@ -418,7 +421,7 @@ namespace Hospital.WindowsForm
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtName.Location = new System.Drawing.Point(307, 65);
+            this.txtName.Location = new System.Drawing.Point(566, 64);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(255, 29);
             this.txtName.TabIndex = 7;
@@ -474,14 +477,44 @@ namespace Hospital.WindowsForm
             this.cbCountShowOnePage.Size = new System.Drawing.Size(115, 29);
             this.cbCountShowOnePage.TabIndex = 9;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.Blue;
+            this.label3.Location = new System.Drawing.Point(284, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 21);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Прізвище";
+            // 
+            // txtLastName
+            // 
+            this.txtLastName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtLastName.Location = new System.Drawing.Point(284, 64);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(255, 29);
+            this.txtLastName.TabIndex = 7;
+            // 
+            // gbBoxButtons
+            // 
+            this.gbBoxButtons.Location = new System.Drawing.Point(25, 433);
+            this.gbBoxButtons.Name = "gbBoxButtons";
+            this.gbBoxButtons.Size = new System.Drawing.Size(767, 87);
+            this.gbBoxButtons.TabIndex = 10;
+            this.gbBoxButtons.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 506);
+            this.ClientSize = new System.Drawing.Size(1026, 547);
+            this.Controls.Add(this.gbBoxButtons);
             this.Controls.Add(this.cbCountShowOnePage);
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.btnRight);
+            this.Controls.Add(this.txtLastName);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblRange);
@@ -553,6 +586,9 @@ namespace Hospital.WindowsForm
         private System.Windows.Forms.Button btnLeft;
         private System.Windows.Forms.Label lblRange;
         private System.Windows.Forms.ComboBox cbCountShowOnePage;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.GroupBox gbBoxButtons;
     }
 }
 

@@ -67,6 +67,12 @@ namespace Hospital.WindowsForm
             }
         }
 
+        private void btnPage_Click(object sender, EventArgs e)
+        {
+            string s = (sender as Button).Text;
+            _page = int.Parse(s);
+            SearchDoctor(GetSearchInputValue());
+        }
         private void btnShowProfile_Click(object sender, EventArgs e)
         {
             
@@ -100,6 +106,7 @@ namespace Hospital.WindowsForm
                 search.DepartmentId = dep.Id;
             }
             search.FirstName = txtName.Text;
+            search.LastName = txtLastName.Text;
             var countSelect = cbCountShowOnePage.SelectedItem as CustomComboBoxItem;
             search.CountShowOnePage = int.Parse(countSelect.Name);
             return search;
@@ -127,6 +134,28 @@ namespace Hospital.WindowsForm
             int end = begin + (search.CountShowOnePage - 1);
             lblRange.Text = $"Показ: {begin} - {end}";
             lblCount.Text = "Всього записів: "+ result.CountRows.ToString();
+
+            int totalPage = (int)Math.Ceiling((double)result.CountRows / search.CountShowOnePage);
+
+            //Малюю кнопки 1, 2, ...
+            int positionX = 10;
+            int dx = 50;
+            gbBoxButtons.Controls.Clear();
+            for (int i = 1; i <= totalPage; i++)
+            {
+                Button btn = new Button();
+                btn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+                btn.Location = new System.Drawing.Point(positionX, 10);
+                btn.Name = $"btnPage{i}";
+                btn.Size = new System.Drawing.Size(45, 45);
+                btn.Text = $"{i}";
+                btn.UseVisualStyleBackColor = true;
+
+                btn.Click += new System.EventHandler(this.btnPage_Click);
+                gbBoxButtons.Controls.Add(btn);
+                positionX += dx;
+            }
+
         }
 
         private void btnLeft_Click(object sender, EventArgs e)

@@ -7,6 +7,7 @@ namespace Hospital.WindowsForm.Models
     public class SearchDoctor
     {
         public int ? DepartmentId { get; set; }
+        public string LastName { get; set; }
         /// <summary>
         /// Ім'я лікаря
         /// </summary>

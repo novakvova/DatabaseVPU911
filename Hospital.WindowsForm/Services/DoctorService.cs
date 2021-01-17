@@ -26,6 +26,11 @@ namespace Hospital.WindowsForm.Services
             {
                 query = query.Where(x => x.FirstName.Contains(search.FirstName));
             }
+
+            if (!string.IsNullOrEmpty(search.LastName))
+            {
+                query = query.Where(x => x.LastName.Contains(search.LastName));
+            }
             int page = search.Page - 1;
             int showItems = search.CountShowOnePage;
             model.CountRows = query.Count();
