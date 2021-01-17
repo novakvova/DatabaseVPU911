@@ -1,5 +1,6 @@
 ﻿using Hospital.DAL;
 using Hospital.WindowsForm.Models;
+using Hospital.WindowsForm.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,15 @@ namespace Hospital.WindowsForm
     public partial class MainForm : Form
     {
         bool isAuth = false;
-        
+        private readonly MyContext _context;
         public MainForm()
         {
+
             LoginForm login_dlg = new LoginForm();
             if (login_dlg.ShowDialog() == DialogResult.OK)
             {
                 isAuth = true;
+                _context = new MyContext();
             }
             InitializeComponent();
         }
@@ -37,17 +40,10 @@ namespace Hospital.WindowsForm
             }
             else
             {
-                MyContext context = new MyContext();
-                foreach (var item in context.Doctors.Include(x => x.Department))
-                {
-                    object[] row = {
-                        $"{item.LastName} {item.FirstName}",
-                        $"{item.Stage}",
-                        $"{item.Department.Name}"
-                    };
-                    dataGridView1.Rows.Add(row);
-                }
-                foreach (var department in context.Departments)
+                SearchDoctor();
+
+
+                foreach (var department in _context.Departments)
                 {
                     CustomComboBoxItem item = new CustomComboBoxItem
                     {
@@ -77,11 +73,35 @@ namespace Hospital.WindowsForm
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            SearchDoctor search = new SearchDoctor();
             var item = cbDepatments.SelectedItem;
             if(item!=null)
             {
                 var dep = cbDepatments.SelectedItem as CustomComboBoxItem;
+                search.DepartmentId = dep.Id;
             }
+            search.FirstName = txtName.Text;
+            SearchDoctor(search);
+        }
+
+        private void SearchDoctor(SearchDoctor search = null)
+        {
+            dataGridView1.Rows.Clear();
+            //if (search == null)
+            //    search = new SearchDoctor();
+            search ??= new SearchDoctor();
+            var list = DoctorService.Search(_context, search);
+            foreach (var item in list)
+            {
+                object[] row = {
+                        item.Id,
+                        item.Name,
+                        item.Stage,
+                        item.Department
+                    };
+                dataGridView1.Rows.Add(row);
+            }
+            lblCount.Text = "Всього записів: "+list.Count().ToString();
         }
     }
 }
