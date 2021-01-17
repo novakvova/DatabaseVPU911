@@ -19,6 +19,8 @@ namespace Hospital.WindowsForm
     {
         bool isAuth = false;
         private readonly MyContext _context;
+        //номер сторінки
+        private int _page = 1;
         public MainForm()
         {
 
@@ -52,6 +54,16 @@ namespace Hospital.WindowsForm
                     };
                     cbDepatments.Items.Add(item);
                 }
+
+                cbCountShowOnePage.Items.AddRange(
+                    new List<CustomComboBoxItem> {
+                            new CustomComboBoxItem { Id=1, Name="10" },
+                            new CustomComboBoxItem { Id=2, Name="20" },
+                            new CustomComboBoxItem { Id=3, Name="30" },
+                            new CustomComboBoxItem { Id=4, Name="50" }
+                       }.ToArray()
+                    );
+                cbCountShowOnePage.SelectedIndex = 0;
             }
         }
 
@@ -73,25 +85,35 @@ namespace Hospital.WindowsForm
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            //Якщо робимо пошук переходимо на початок
+            _page = 1;
+            SearchDoctor(GetSearchInputValue());
+        }
+
+        private SearchDoctor GetSearchInputValue()
+        {
             SearchDoctor search = new SearchDoctor();
             var item = cbDepatments.SelectedItem;
-            if(item!=null)
+            if (item != null)
             {
                 var dep = cbDepatments.SelectedItem as CustomComboBoxItem;
                 search.DepartmentId = dep.Id;
             }
             search.FirstName = txtName.Text;
-            SearchDoctor(search);
+            var countSelect = cbCountShowOnePage.SelectedItem as CustomComboBoxItem;
+            search.CountShowOnePage = int.Parse(countSelect.Name);
+            return search;
         }
 
         private void SearchDoctor(SearchDoctor search = null)
         {
             dataGridView1.Rows.Clear();
-            //if (search == null)
+            //if (search == null) 
             //    search = new SearchDoctor();
             search ??= new SearchDoctor();
-            var list = DoctorService.Search(_context, search);
-            foreach (var item in list)
+            search.Page = _page;
+            var result = DoctorService.Search(_context, search);
+            foreach (var item in result.Doctors)
             {
                 object[] row = {
                         item.Id,
@@ -101,7 +123,27 @@ namespace Hospital.WindowsForm
                     };
                 dataGridView1.Rows.Add(row);
             }
-            lblCount.Text = "Всього записів: "+list.Count().ToString();
+            int begin = (_page - 1) * search.CountShowOnePage + 1;
+            int end = begin + (search.CountShowOnePage - 1);
+            lblRange.Text = $"Показ: {begin} - {end}";
+            lblCount.Text = "Всього записів: "+ result.CountRows.ToString();
         }
+
+        private void btnLeft_Click(object sender, EventArgs e)
+        {
+            if (_page > 1)
+            {
+                _page -= 1;
+                SearchDoctor(GetSearchInputValue());
+            }
+        }
+
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            _page += 1;
+            SearchDoctor(GetSearchInputValue());
+        }
+
+
     }
 }

@@ -4,6 +4,18 @@ using System.Text;
 
 namespace Hospital.WindowsForm.Models
 {
+    public class DoctorViewGrid
+    {
+        /// <summary>
+        /// Записи, які ми відображаємо по пошуку
+        /// </summary>
+        public List<DoctorItemView> Doctors { get; set; }
+        /// <summary>
+        /// Загальна кількість записів, які ми знайшли
+        /// </summary>
+        public int CountRows { get; set; }
+    }
+
     public class DoctorItemView
     {
         public int Id { get; set; }

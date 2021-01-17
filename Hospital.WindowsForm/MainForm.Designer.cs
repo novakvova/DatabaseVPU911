@@ -32,6 +32,10 @@ namespace Hospital.WindowsForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnSearch = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IdCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColStage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.headMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,10 +72,10 @@ namespace Hospital.WindowsForm
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblCount = new System.Windows.Forms.Label();
-            this.IdCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColStage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRight = new System.Windows.Forms.Button();
+            this.btnLeft = new System.Windows.Forms.Button();
+            this.lblRange = new System.Windows.Forms.Label();
+            this.cbCountShowOnePage = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.headMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -96,13 +100,40 @@ namespace Hospital.WindowsForm
             this.ColName,
             this.ColStage,
             this.ColDepartment});
-            this.dataGridView1.Location = new System.Drawing.Point(25, 122);
+            this.dataGridView1.Location = new System.Drawing.Point(25, 141);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.Size = new System.Drawing.Size(981, 239);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // IdCol
+            // 
+            this.IdCol.HeaderText = "Id";
+            this.IdCol.Name = "IdCol";
+            this.IdCol.Width = 50;
+            // 
+            // ColName
+            // 
+            this.ColName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColName.HeaderText = "Ім\'я";
+            this.ColName.MinimumWidth = 6;
+            this.ColName.Name = "ColName";
+            // 
+            // ColStage
+            // 
+            this.ColStage.HeaderText = "Стаж";
+            this.ColStage.MinimumWidth = 6;
+            this.ColStage.Name = "ColStage";
+            this.ColStage.Width = 200;
+            // 
+            // ColDepartment
+            // 
+            this.ColDepartment.HeaderText = "Відділ";
+            this.ColDepartment.MinimumWidth = 6;
+            this.ColDepartment.Name = "ColDepartment";
+            this.ColDepartment.Width = 200;
             // 
             // headMenuStrip
             // 
@@ -116,7 +147,7 @@ namespace Hospital.WindowsForm
             this.headMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.headMenuStrip.Name = "headMenuStrip";
             this.headMenuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.headMenuStrip.Size = new System.Drawing.Size(1029, 24);
+            this.headMenuStrip.Size = new System.Drawing.Size(1026, 24);
             this.headMenuStrip.TabIndex = 4;
             this.headMenuStrip.Text = "menuStrip1";
             // 
@@ -397,46 +428,63 @@ namespace Hospital.WindowsForm
             this.lblCount.AutoSize = true;
             this.lblCount.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.lblCount.ForeColor = System.Drawing.Color.Blue;
-            this.lblCount.Location = new System.Drawing.Point(25, 375);
+            this.lblCount.Location = new System.Drawing.Point(25, 398);
             this.lblCount.Name = "lblCount";
             this.lblCount.Size = new System.Drawing.Size(78, 21);
             this.lblCount.TabIndex = 6;
             this.lblCount.Text = "Всього: 0";
             // 
-            // IdCol
+            // btnRight
             // 
-            this.IdCol.HeaderText = "Id";
-            this.IdCol.Name = "IdCol";
-            this.IdCol.Width = 50;
+            this.btnRight.Location = new System.Drawing.Point(908, 392);
+            this.btnRight.Name = "btnRight";
+            this.btnRight.Size = new System.Drawing.Size(98, 37);
+            this.btnRight.TabIndex = 8;
+            this.btnRight.Text = "Далі >>";
+            this.btnRight.UseVisualStyleBackColor = true;
+            this.btnRight.Click += new System.EventHandler(this.btnRight_Click);
             // 
-            // ColName
+            // btnLeft
             // 
-            this.ColName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColName.HeaderText = "Ім\'я";
-            this.ColName.MinimumWidth = 6;
-            this.ColName.Name = "ColName";
+            this.btnLeft.Location = new System.Drawing.Point(804, 392);
+            this.btnLeft.Name = "btnLeft";
+            this.btnLeft.Size = new System.Drawing.Size(98, 37);
+            this.btnLeft.TabIndex = 8;
+            this.btnLeft.Text = "<< Назад";
+            this.btnLeft.UseVisualStyleBackColor = true;
+            this.btnLeft.Click += new System.EventHandler(this.btnLeft_Click);
             // 
-            // ColStage
+            // lblRange
             // 
-            this.ColStage.HeaderText = "Стаж";
-            this.ColStage.MinimumWidth = 6;
-            this.ColStage.Name = "ColStage";
-            this.ColStage.Width = 200;
+            this.lblRange.AutoSize = true;
+            this.lblRange.Font = new System.Drawing.Font("Segoe UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblRange.ForeColor = System.Drawing.Color.Blue;
+            this.lblRange.Location = new System.Drawing.Point(146, 105);
+            this.lblRange.Name = "lblRange";
+            this.lblRange.Size = new System.Drawing.Size(98, 21);
+            this.lblRange.TabIndex = 6;
+            this.lblRange.Text = "Показ: 0-10";
             // 
-            // ColDepartment
+            // cbCountShowOnePage
             // 
-            this.ColDepartment.HeaderText = "Відділ";
-            this.ColDepartment.MinimumWidth = 6;
-            this.ColDepartment.Name = "ColDepartment";
-            this.ColDepartment.Width = 200;
+            this.cbCountShowOnePage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cbCountShowOnePage.FormattingEnabled = true;
+            this.cbCountShowOnePage.Location = new System.Drawing.Point(25, 102);
+            this.cbCountShowOnePage.Name = "cbCountShowOnePage";
+            this.cbCountShowOnePage.Size = new System.Drawing.Size(115, 29);
+            this.cbCountShowOnePage.TabIndex = 9;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 422);
+            this.ClientSize = new System.Drawing.Size(1026, 506);
+            this.Controls.Add(this.cbCountShowOnePage);
+            this.Controls.Add(this.btnLeft);
+            this.Controls.Add(this.btnRight);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblRange);
             this.Controls.Add(this.lblCount);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbDepatments);
@@ -501,6 +549,10 @@ namespace Hospital.WindowsForm
         private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColDepartment;
+        private System.Windows.Forms.Button btnRight;
+        private System.Windows.Forms.Button btnLeft;
+        private System.Windows.Forms.Label lblRange;
+        private System.Windows.Forms.ComboBox cbCountShowOnePage;
     }
 }
 

@@ -11,5 +11,10 @@ namespace Hospital.WindowsForm.Models
         /// Ім'я лікаря
         /// </summary>
         public string FirstName { get; set; }
+        public int Page { get; set; }
+        /// <summary>
+        /// Кількість записів на сторінці
+        /// </summary>
+        public int CountShowOnePage { get; set; } = 10;
     }
 }
