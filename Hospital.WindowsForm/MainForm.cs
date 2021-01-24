@@ -29,6 +29,7 @@ namespace Hospital.WindowsForm
             //{
                 isAuth = true;
                 _context = new MyContext();
+            DbSeeder.SeedAll(_context);
             //}
             InitializeComponent();
         }

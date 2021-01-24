@@ -12,7 +12,56 @@ namespace Hospital.DAL
         {
             SeedDepatrment(context);
             SeedDoctor(context);
+            SeedQuestion(context);
         }
+
+
+        private static void SeedQuestion(MyContext context)
+        {
+            if (context.Questions.Count()==0)
+            {
+                var question = new Question
+                {
+                    Text = "Улюблена марка автомобіля Блонського?",
+                };
+
+                context.Questions.Add(question);
+                context.SaveChanges();
+                var answers = new List<Answer>
+                {
+                    new Answer {Text="Жигуль",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Москвіч",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="ЗАЗ",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Тесла",IsTrue=true,QuestionId=question.Id}
+
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
+                question = new Question
+                {
+                    Text = "Яка модель телефона у Блонського?",
+                };
+
+                context.Questions.Add(question);
+                context.SaveChanges();
+                 answers = new List<Answer>
+                {
+                    new Answer {Text="Нокіа",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Еріксон",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Самсунг",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Айфон",IsTrue=true,QuestionId=question.Id}
+
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
+
+
+            }
+
+        }
+
+
+
         private static void SeedDepatrment(MyContext context)
         {
             if(context.Departments.Count()==0)
