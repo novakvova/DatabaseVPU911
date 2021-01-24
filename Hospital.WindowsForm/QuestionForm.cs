@@ -47,6 +47,33 @@ namespace Hospital.WindowsForm
                            IsTrue = true
                        },
                     }
+                },
+                new QuestionModel
+                {
+                    Text = "Коли родився Шевченко?",
+                    Answers = new List<QuestionAnswerModel>
+                    {
+                       new QuestionAnswerModel
+                       {
+                           Text = "23 жовтня 1894р.",
+                           IsTrue = false
+                       },
+                       new QuestionAnswerModel
+                       {
+                           Text = "1 вересня 1973р.",
+                           IsTrue = false
+                       },
+                       new QuestionAnswerModel
+                       {
+                           Text = "9 березня 1814р.",
+                           IsTrue = true
+                       },
+                       new QuestionAnswerModel
+                       {
+                           Text = "12 квітня 1961р.",
+                           IsTrue = false
+                       },
+                    }
                 }
             };
             InitializeComponent();
@@ -62,7 +89,8 @@ namespace Hospital.WindowsForm
             var answers = _listQuestions[indexQuestion].Answers;
             int dy = 25;
             int startPosition = 30;
-            for(int i=0;i<answers.Count;i++)
+            gbAnswers.Controls.Clear();
+            for (int i=0;i<answers.Count;i++)
             {
                 RadioButton gbOneItem;
                 gbOneItem = new System.Windows.Forms.RadioButton();
@@ -102,6 +130,8 @@ namespace Hospital.WindowsForm
 
             //Чи правильно ми відповіли на 1 перше питання.
             MessageBox.Show("Ви відповіли? ", result[indexQuestion].ToString());
+            indexQuestion++;
+            LoadQuestion();
 
         }
     }
