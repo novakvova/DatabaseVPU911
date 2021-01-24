@@ -32,6 +32,7 @@ namespace Hospital.WindowsForm
             this.lblQuestion = new System.Windows.Forms.Label();
             this.gbAnswers = new System.Windows.Forms.GroupBox();
             this.btnNext = new System.Windows.Forms.Button();
+            this.lblNumberQuestion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblQuestion
@@ -39,15 +40,15 @@ namespace Hospital.WindowsForm
             this.lblQuestion.AutoSize = true;
             this.lblQuestion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblQuestion.ForeColor = System.Drawing.Color.Blue;
-            this.lblQuestion.Location = new System.Drawing.Point(23, 37);
+            this.lblQuestion.Location = new System.Drawing.Point(23, 59);
             this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(211, 21);
+            this.lblQuestion.Size = new System.Drawing.Size(77, 21);
             this.lblQuestion.TabIndex = 0;
-            this.lblQuestion.Text = "Скільки років Шевченку?";
+            this.lblQuestion.Text = "Питання";
             // 
             // gbAnswers
             // 
-            this.gbAnswers.Location = new System.Drawing.Point(23, 79);
+            this.gbAnswers.Location = new System.Drawing.Point(23, 94);
             this.gbAnswers.Name = "gbAnswers";
             this.gbAnswers.Size = new System.Drawing.Size(403, 166);
             this.gbAnswers.TabIndex = 2;
@@ -56,7 +57,7 @@ namespace Hospital.WindowsForm
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(329, 277);
+            this.btnNext.Location = new System.Drawing.Point(329, 275);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(97, 35);
             this.btnNext.TabIndex = 3;
@@ -64,13 +65,25 @@ namespace Hospital.WindowsForm
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
+            // lblNumberQuestion
+            // 
+            this.lblNumberQuestion.AutoSize = true;
+            this.lblNumberQuestion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblNumberQuestion.ForeColor = System.Drawing.Color.Blue;
+            this.lblNumberQuestion.Location = new System.Drawing.Point(23, 9);
+            this.lblNumberQuestion.Name = "lblNumberQuestion";
+            this.lblNumberQuestion.Size = new System.Drawing.Size(106, 21);
+            this.lblNumberQuestion.TabIndex = 0;
+            this.lblNumberQuestion.Text = "Питання 1/5";
+            // 
             // QuestionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 335);
+            this.ClientSize = new System.Drawing.Size(451, 324);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.gbAnswers);
+            this.Controls.Add(this.lblNumberQuestion);
             this.Controls.Add(this.lblQuestion);
             this.Name = "QuestionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -86,5 +99,6 @@ namespace Hospital.WindowsForm
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.GroupBox gbAnswers;
         private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Label lblNumberQuestion;
     }
 }

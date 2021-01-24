@@ -21,16 +21,16 @@ namespace Hospital.WindowsForm
         public QuestionForm(MyContext context)
         {
             _listQuestions = new List<QuestionModel>();
-                //context.Questions
-                //.Select(x => new QuestionModel
-                //{
-                //    Text = x.Text,
-                //    Answers = x.Answers.Select(y => new QuestionAnswerModel
-                //    {
-                //        Text=y.Text,
-                //        IsTrue=y.IsTrue
-                //    }).ToList()
-                //}).ToList();
+                ///context.Questions
+                ///.Select(x => new QuestionModel
+                ///{
+                ///    Text = x.Text,
+                ///    Answers = x.Answers.Select(y => new QuestionAnswerModel
+                ///    {
+                ///        Text=y.Text,
+                ///        IsTrue=y.IsTrue
+                ///    }).ToList()
+                ///}).ToList();
             foreach(var item in context.Questions.ToList())
             {
                 QuestionModel question = new QuestionModel
@@ -38,7 +38,6 @@ namespace Hospital.WindowsForm
                     Text = item.Text,
                     Answers = new List<QuestionAnswerModel>()
                 };
-
                 foreach(var answer in context.Answers
                     .Where(x=>x.QuestionId==item.Id))
                 {
@@ -111,6 +110,7 @@ namespace Hospital.WindowsForm
             ///};
             InitializeComponent();
             result = new bool[_listQuestions.Count];
+            //indexQuestion++;
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Hospital.WindowsForm
                 gbAnswers.Controls.Add(gbOneItem);
                 startPosition += dy;
             }
-            
+            lblNumberQuestion.Text = $"Питання {indexQuestion + 1} з {_listQuestions.Count}";
         }
 
         private void QuestionForm_Load(object sender, EventArgs e)

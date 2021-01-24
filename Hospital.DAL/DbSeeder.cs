@@ -33,7 +33,6 @@ namespace Hospital.DAL
                     new Answer {Text="Москвіч",IsTrue=false,QuestionId=question.Id},
                     new Answer {Text="ЗАЗ",IsTrue=false,QuestionId=question.Id},
                     new Answer {Text="Тесла",IsTrue=true,QuestionId=question.Id}
-
                 };
                 context.Answers.AddRange(answers);
                 context.SaveChanges();
@@ -50,11 +49,26 @@ namespace Hospital.DAL
                     new Answer {Text="Еріксон",IsTrue=false,QuestionId=question.Id},
                     new Answer {Text="Самсунг",IsTrue=false,QuestionId=question.Id},
                     new Answer {Text="Айфон",IsTrue=true,QuestionId=question.Id}
-
                 };
                 context.Answers.AddRange(answers);
                 context.SaveChanges();
 
+                question = new Question
+                {
+                    Text = "Яка порода собаки у Власюк?",
+                };
+
+                context.Questions.Add(question);
+                context.SaveChanges();
+                answers = new List<Answer>
+                {
+                    new Answer {Text="Шотландська вівчарка",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Німецька вівчарка",IsTrue=true,QuestionId=question.Id},
+                    new Answer {Text="Молдавська вівчарка",IsTrue=false,QuestionId=question.Id},
+                    new Answer {Text="Пікінес",IsTrue=false,QuestionId=question.Id}
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
 
             }
 
