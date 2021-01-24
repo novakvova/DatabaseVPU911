@@ -20,16 +20,37 @@ namespace Hospital.WindowsForm
         private bool[] result;
         public QuestionForm(MyContext context)
         {
-            _listQuestions = context.Questions
-                .Select(x => new QuestionModel
+            _listQuestions = new List<QuestionModel>();
+                //context.Questions
+                //.Select(x => new QuestionModel
+                //{
+                //    Text = x.Text,
+                //    Answers = x.Answers.Select(y => new QuestionAnswerModel
+                //    {
+                //        Text=y.Text,
+                //        IsTrue=y.IsTrue
+                //    }).ToList()
+                //}).ToList();
+            foreach(var item in context.Questions.ToList())
+            {
+                QuestionModel question = new QuestionModel
                 {
-                    Text = x.Text,
-                    Answers = x.Answers.Select(y => new QuestionAnswerModel
+                    Text = item.Text,
+                    Answers = new List<QuestionAnswerModel>()
+                };
+
+                foreach(var answer in context.Answers
+                    .Where(x=>x.QuestionId==item.Id))
+                {
+                    var answerModel = new QuestionAnswerModel
                     {
-                        Text=y.Text,
-                        IsTrue=y.IsTrue
-                    }).ToList()
-                }).ToList();
+                        Text = answer.Text,
+                        IsTrue = answer.IsTrue
+                    };
+                    question.Answers.Add(answerModel);
+                }
+                _listQuestions.Add(question);
+            }
 
             ///_listQuestions = new List<QuestionModel>
             ///{
