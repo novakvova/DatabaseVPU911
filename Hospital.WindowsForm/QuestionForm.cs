@@ -1,4 +1,5 @@
-﻿using Hospital.WindowsForm.Models.Question;
+﻿using Hospital.DAL;
+using Hospital.WindowsForm.Models.Question;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,65 +18,76 @@ namespace Hospital.WindowsForm
         //Поточне питання
         private int indexQuestion = 0;
         private bool[] result;
-        public QuestionForm()
+        public QuestionForm(MyContext context)
         {
-            _listQuestions = new List<QuestionModel>
-            {
-                new QuestionModel
+            _listQuestions = context.Questions
+                .Select(x => new QuestionModel
                 {
-                    Text = "Коли Гагарін призимлився перший раз?",
-                    Answers = new List<QuestionAnswerModel>
+                    Text = x.Text,
+                    Answers = x.Answers.Select(y => new QuestionAnswerModel
                     {
-                       new QuestionAnswerModel
-                       {
-                           Text = "23 жовтня 2003р.",
-                           IsTrue = false
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "1 вересня 1973р.",
-                           IsTrue = false
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "30 лютого 1961р.",
-                           IsTrue = false
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "12 квітня 1961р.",
-                           IsTrue = true
-                       },
-                    }
-                },
-                new QuestionModel
-                {
-                    Text = "Коли родився Шевченко?",
-                    Answers = new List<QuestionAnswerModel>
-                    {
-                       new QuestionAnswerModel
-                       {
-                           Text = "23 жовтня 1894р.",
-                           IsTrue = false
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "1 вересня 1973р.",
-                           IsTrue = false
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "9 березня 1814р.",
-                           IsTrue = true
-                       },
-                       new QuestionAnswerModel
-                       {
-                           Text = "12 квітня 1961р.",
-                           IsTrue = false
-                       },
-                    }
-                }
-            };
+                        Text=y.Text,
+                        IsTrue=y.IsTrue
+                    }).ToList()
+                }).ToList();
+
+            ///_listQuestions = new List<QuestionModel>
+            ///{
+            ///    new QuestionModel
+            ///    {
+            ///        Text = "Коли Гагарін призимлився перший раз?",
+            ///        Answers = new List<QuestionAnswerModel>
+            ///        {
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "23 жовтня 2003р.",
+            ///               IsTrue = false
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "1 вересня 1973р.",
+            ///               IsTrue = false
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "30 лютого 1961р.",
+            ///               IsTrue = false
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "12 квітня 1961р.",
+            ///               IsTrue = true
+            ///           },
+            ///        }
+            ///    },
+            ///    new QuestionModel
+            ///    {
+            ///        Text = "Коли родився Шевченко?",
+            ///        Answers = new List<QuestionAnswerModel>
+            ///        {
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "23 жовтня 1894р.",
+            ///               IsTrue = false
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "1 вересня 1973р.",
+            ///               IsTrue = false
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "9 березня 1814р.",
+            ///               IsTrue = true
+            ///           },
+            ///           new QuestionAnswerModel
+            ///           {
+            ///               Text = "12 квітня 1961р.",
+            ///               IsTrue = false
+            ///           },
+            ///        }
+            ///    }
+            ///};
             InitializeComponent();
             result = new bool[_listQuestions.Count];
         }

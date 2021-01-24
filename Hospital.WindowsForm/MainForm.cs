@@ -176,7 +176,7 @@ namespace Hospital.WindowsForm
 
         private void startQuestionStrictMenuItem_Click(object sender, EventArgs e)
         {
-            QuestionForm dlg = new QuestionForm();
+            QuestionForm dlg = new QuestionForm(_context);
             dlg.ShowDialog();
         }
     }
