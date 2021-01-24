@@ -50,14 +50,14 @@ namespace Hospital.WindowsForm
             // 
             this.gbAnswers.Location = new System.Drawing.Point(23, 94);
             this.gbAnswers.Name = "gbAnswers";
-            this.gbAnswers.Size = new System.Drawing.Size(403, 166);
+            this.gbAnswers.Size = new System.Drawing.Size(567, 166);
             this.gbAnswers.TabIndex = 2;
             this.gbAnswers.TabStop = false;
             this.gbAnswers.Text = "Варіанти відповіді";
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(329, 275);
+            this.btnNext.Location = new System.Drawing.Point(23, 280);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(97, 35);
             this.btnNext.TabIndex = 3;
@@ -69,7 +69,7 @@ namespace Hospital.WindowsForm
             // 
             this.lblNumberQuestion.AutoSize = true;
             this.lblNumberQuestion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblNumberQuestion.ForeColor = System.Drawing.Color.Blue;
+            this.lblNumberQuestion.ForeColor = System.Drawing.Color.Crimson;
             this.lblNumberQuestion.Location = new System.Drawing.Point(23, 9);
             this.lblNumberQuestion.Name = "lblNumberQuestion";
             this.lblNumberQuestion.Size = new System.Drawing.Size(106, 21);
@@ -80,7 +80,7 @@ namespace Hospital.WindowsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 324);
+            this.ClientSize = new System.Drawing.Size(618, 337);
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.gbAnswers);
             this.Controls.Add(this.lblNumberQuestion);

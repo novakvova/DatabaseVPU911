@@ -22,54 +22,85 @@ namespace Hospital.DAL
             {
                 var question = new Question
                 {
-                    Text = "Улюблена марка автомобіля Блонського?",
+                    Text = "Скільки планет в Сонячній системі?",
                 };
-
                 context.Questions.Add(question);
                 context.SaveChanges();
+                
                 var answers = new List<Answer>
                 {
-                    new Answer {Text="Жигуль",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Москвіч",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="ЗАЗ",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Тесла",IsTrue=true,QuestionId=question.Id}
+                    new Answer { Text="8", IsTrue=true, QuestionId=question.Id },
+                    new Answer { Text="9", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="10", IsTrue=false, QuestionId=question.Id }
                 };
                 context.Answers.AddRange(answers);
                 context.SaveChanges();
+                
                 question = new Question
                 {
-                    Text = "Яка модель телефона у Блонського?",
+                    Text = "Яке небесне тіло було раніше планетою?",
                 };
-
                 context.Questions.Add(question);
                 context.SaveChanges();
-                 answers = new List<Answer>
-                {
-                    new Answer {Text="Нокіа",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Еріксон",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Самсунг",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Айфон",IsTrue=true,QuestionId=question.Id}
-                };
-                context.Answers.AddRange(answers);
-                context.SaveChanges();
-
-                question = new Question
-                {
-                    Text = "Яка порода собаки у Власюк?",
-                };
-
-                context.Questions.Add(question);
-                context.SaveChanges();
+                
                 answers = new List<Answer>
                 {
-                    new Answer {Text="Шотландська вівчарка",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Німецька вівчарка",IsTrue=true,QuestionId=question.Id},
-                    new Answer {Text="Молдавська вівчарка",IsTrue=false,QuestionId=question.Id},
-                    new Answer {Text="Пікінес",IsTrue=false,QuestionId=question.Id}
+                    new Answer { Text="Місяць", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="Плутон", IsTrue=true, QuestionId=question.Id },
+                    new Answer { Text="Харон", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="Церера", IsTrue=false, QuestionId=question.Id }
                 };
                 context.Answers.AddRange(answers);
                 context.SaveChanges();
 
+                question = new Question
+                {
+                    Text = "Що знаходиться між орбітами Марса та Юпітера?",
+                };
+                context.Questions.Add(question);
+                context.SaveChanges();
+                
+                answers = new List<Answer>
+                {
+                    new Answer { Text="Пояс Койпера", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="Пояс астероїдів", IsTrue=true, QuestionId=question.Id },
+                    new Answer { Text="Кільця Сатурна", IsTrue=false, QuestionId=question.Id }
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
+
+                question = new Question
+                {
+                    Text = "Скільки супутників у Юпітера?",
+                };
+                context.Questions.Add(question);
+                context.SaveChanges();
+
+                answers = new List<Answer>
+                {
+                    new Answer { Text="13", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="47", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="79", IsTrue=true, QuestionId=question.Id },
+                    new Answer { Text="97", IsTrue=false, QuestionId=question.Id }
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
+
+                question = new Question
+                {
+                    Text = "Яка ще гіпотетична планета обертається навколо Сонця?",
+                };
+                context.Questions.Add(question);
+                context.SaveChanges();
+
+                answers = new List<Answer>
+                {
+                    new Answer { Text="Тіамат", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="Фаетон", IsTrue=false, QuestionId=question.Id },
+                    new Answer { Text="Нібіру", IsTrue=true, QuestionId=question.Id }
+                };
+                context.Answers.AddRange(answers);
+                context.SaveChanges();
             }
 
         }

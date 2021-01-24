@@ -13,11 +13,13 @@ namespace Hospital.WindowsForm
 {
     public partial class QuestionForm : Form
     {
-        //Списко питань
+        //Список питань
         private List<QuestionModel> _listQuestions;
         //Поточне питання
         private int indexQuestion = 0;
         private bool[] result;
+        
+
         public QuestionForm(MyContext context)
         {
             _listQuestions = new List<QuestionModel>();
@@ -110,7 +112,7 @@ namespace Hospital.WindowsForm
             ///};
             InitializeComponent();
             result = new bool[_listQuestions.Count];
-            //indexQuestion++;
+            
         }
 
         /// <summary>
@@ -140,18 +142,22 @@ namespace Hospital.WindowsForm
                 startPosition += dy;
             }
             lblNumberQuestion.Text = $"Питання {indexQuestion + 1} з {_listQuestions.Count}";
+            
         }
 
         private void QuestionForm_Load(object sender, EventArgs e)
         {
             LoadQuestion();
+            
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            
             var radioButtons = gbAnswers.Controls.OfType<RadioButton>();
             foreach (RadioButton rb in radioButtons)
             {
+
                 if(rb.Checked)
                 {
                     var answer = rb.Tag as QuestionAnswerModel;
@@ -162,10 +168,27 @@ namespace Hospital.WindowsForm
             }
 
             //Чи правильно ми відповіли на 1 перше питання.
-            MessageBox.Show("Ви відповіли? ", result[indexQuestion].ToString());
-            indexQuestion++;
-            LoadQuestion();
+            //MessageBox.Show("Ви відповіли? ", result[indexQuestion].ToString());
 
+            indexQuestion++;
+
+            if(indexQuestion<_listQuestions.Count)
+            {
+                LoadQuestion();
+            }
+            else
+            {
+                this.Close();
+                ResultForm rf = new ResultForm(result);
+                rf.ShowDialog();
+            }
+            
         }
     }
 }
+
+
+//if (indexQuestion > 5)
+//{
+//    this.Close();
+//}
