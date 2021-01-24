@@ -7,6 +7,9 @@ namespace Hospital.DAL
 {
     public class MyContext : DbContext
     {
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+
         public DbSet<Department> Departments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
