@@ -24,12 +24,12 @@ namespace Hospital.WindowsForm
         public MainForm()
         {
 
-            LoginForm login_dlg = new LoginForm();
-            if (login_dlg.ShowDialog() == DialogResult.OK)
-            {
+            //LoginForm login_dlg = new LoginForm();
+            //if (login_dlg.ShowDialog() == DialogResult.OK)
+            //{
                 isAuth = true;
                 _context = new MyContext();
-            }
+            //}
             InitializeComponent();
         }
 
@@ -173,6 +173,10 @@ namespace Hospital.WindowsForm
             SearchDoctor(GetSearchInputValue());
         }
 
-
+        private void startQuestionStrictMenuItem_Click(object sender, EventArgs e)
+        {
+            QuestionForm dlg = new QuestionForm();
+            dlg.ShowDialog();
+        }
     }
 }

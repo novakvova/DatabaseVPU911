@@ -67,6 +67,8 @@ namespace Hospital.WindowsForm
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.questionStrictMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startQuestionStrictMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbDepatments = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -146,7 +148,8 @@ namespace Hospital.WindowsForm
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem,
-            this.profileStripMenuItem});
+            this.profileStripMenuItem,
+            this.questionStrictMenuItem});
             this.headMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.headMenuStrip.Name = "headMenuStrip";
             this.headMenuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
@@ -386,6 +389,21 @@ namespace Hospital.WindowsForm
             this.profileStripMenuItem.Text = "Профіль";
             this.profileStripMenuItem.Click += new System.EventHandler(this.profileStripMenuItem_Click);
             // 
+            // questionStrictMenuItem
+            // 
+            this.questionStrictMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startQuestionStrictMenuItem});
+            this.questionStrictMenuItem.Name = "questionStrictMenuItem";
+            this.questionStrictMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.questionStrictMenuItem.Text = "Тестування";
+            // 
+            // startQuestionStrictMenuItem
+            // 
+            this.startQuestionStrictMenuItem.Name = "startQuestionStrictMenuItem";
+            this.startQuestionStrictMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.startQuestionStrictMenuItem.Text = "Пройти тест";
+            this.startQuestionStrictMenuItem.Click += new System.EventHandler(this.startQuestionStrictMenuItem_Click);
+            // 
             // cbDepatments
             // 
             this.cbDepatments.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -589,6 +607,8 @@ namespace Hospital.WindowsForm
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.GroupBox gbBoxButtons;
+        private System.Windows.Forms.ToolStripMenuItem questionStrictMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startQuestionStrictMenuItem;
     }
 }
 
