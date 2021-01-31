@@ -13,6 +13,7 @@ namespace Hospital.DAL
             SeedDepatrment(context);
             SeedDoctor(context);
             SeedQuestion(context);
+            SeedUser(context);
         }
 
 
@@ -162,6 +163,24 @@ namespace Hospital.DAL
                         .FirstOrDefault(x => x.Name == "Інфекційне")
                     });
 
+
+                context.SaveChanges();
+            }
+        }
+
+        private static void SeedUser(MyContext context)
+        {
+            if (context.Users.Count() == 0)
+            {
+                context.Users
+                    .Add(
+                    new User
+                    {
+                        FirstName = "Оксана",
+                        LastName = "Мельник",
+                        Login = "gena",
+                        Password = PasswordManager.HashPassword("123456"),
+                    });
 
                 context.SaveChanges();
             }

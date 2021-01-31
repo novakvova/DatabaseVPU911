@@ -7,6 +7,7 @@ namespace Hospital.DAL
 {
     public class MyContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
 
