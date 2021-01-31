@@ -17,6 +17,7 @@ namespace Hospital.DAL
         public DateTime End { get; set; }
         public decimal Marks { get; set; }
         public virtual User User { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
 
 
     }

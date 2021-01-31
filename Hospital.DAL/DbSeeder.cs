@@ -15,6 +15,7 @@ namespace Hospital.DAL
             SeedQuestion(context);
             SeedUser(context);
             SeedSession(context);
+            SeedResult(context);
         }
 
 
@@ -199,6 +200,51 @@ namespace Hospital.DAL
                         Marks=75.4M,
                         UserId=1
                     });
+
+                context.SaveChanges();
+            }
+        }
+
+        private static void SeedResult(MyContext context)
+        {
+            if (context.Results.Count() == 0)
+            {
+                context.Results
+                    .Add(
+                    new Result
+                    {
+                        SessionId= 1,
+                        AnswerId = 2
+                    });
+                context.Results
+                    .Add(
+                    new Result
+                    {
+                        SessionId = 1,
+                        AnswerId = 5
+                    });
+                context.Results
+                   .Add(
+                   new Result
+                   {
+                       SessionId = 1,
+                       AnswerId = 9
+                   });
+                context.Results
+                   .Add(
+                   new Result
+                   {
+                       SessionId = 1,
+                       AnswerId = 13
+                   });
+
+                context.Results
+                   .Add(
+                   new Result
+                   {
+                       SessionId = 1,
+                       AnswerId = 16
+                   });
 
                 context.SaveChanges();
             }
