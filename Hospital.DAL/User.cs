@@ -22,5 +22,6 @@ namespace Hospital.DAL
 
         [Required, StringLength(250)]
         public string Password { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
     }
 }

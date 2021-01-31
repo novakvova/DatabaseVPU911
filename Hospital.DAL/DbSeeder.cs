@@ -14,6 +14,7 @@ namespace Hospital.DAL
             SeedDoctor(context);
             SeedQuestion(context);
             SeedUser(context);
+            SeedSession(context);
         }
 
 
@@ -107,7 +108,6 @@ namespace Hospital.DAL
         }
 
 
-
         private static void SeedDepatrment(MyContext context)
         {
             if(context.Departments.Count()==0)
@@ -185,5 +185,24 @@ namespace Hospital.DAL
                 context.SaveChanges();
             }
         }
+
+        private static void SeedSession(MyContext context)
+        {
+            if (context.Sessions.Count() == 0)
+            {
+                context.Sessions
+                    .Add(
+                    new Session
+                    {
+                        Begin=DateTime.Now,
+                        End=DateTime.Now.AddMinutes(26),
+                        Marks=75.4M,
+                        UserId=1
+                    });
+
+                context.SaveChanges();
+            }
+        }
+
     }
 }
