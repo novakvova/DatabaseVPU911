@@ -30,6 +30,22 @@ namespace Hospital.WindowsForm
                 isAuth = true;
                 _context = new MyContext();
             DbSeeder.SeedAll(_context);
+
+            var info = _context.Sessions
+                .Where(x => x.UserId == 1)
+                .Select(x => new
+                {
+                    Name= x.User.LastName+" "+x.User.FirstName,
+                    Begin=x.Begin,
+                    End=x.End,
+                    Mark=x.Marks,
+                    Quesions = x.Results.Select(y=> new
+                    {
+                        Text= y.Answer.Question.Text,
+                        isTrue=y.Answer.IsTrue
+                        
+                    })
+                }).ToList();
             //}
             InitializeComponent();
         }
