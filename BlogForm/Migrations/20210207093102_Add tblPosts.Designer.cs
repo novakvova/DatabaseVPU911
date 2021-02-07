@@ -3,15 +3,17 @@ using System;
 using BlogForm.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BlogForm.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20210207093102_Add tblPosts")]
+    partial class AddtblPosts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,41 +90,11 @@ namespace BlogForm.Migrations
                     b.ToTable("tblTags");
                 });
 
-            modelBuilder.Entity("BlogForm.Entities.TagPost", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("tblTagPosts");
-                });
-
             modelBuilder.Entity("BlogForm.Entities.Post", b =>
                 {
                     b.HasOne("BlogForm.Entities.Category", "Category")
                         .WithMany("Posts")
                         .HasForeignKey("CategoryId");
-                });
-
-            modelBuilder.Entity("BlogForm.Entities.TagPost", b =>
-                {
-                    b.HasOne("BlogForm.Entities.Post", "Post")
-                        .WithMany("TagPosts")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlogForm.Entities.Tag", "Tag")
-                        .WithMany("TagPosts")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace BlogForm.Entities
 {
-    [Table("tblCategories")]
-    public class Category
+    [Table("tblTags")]
+    public class Tag
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace BlogForm.Entities
         public string Name { get; set; }
         [StringLength(4000)]
         public string Description { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<TagPost> TagPosts { get; set; }
     }
 }

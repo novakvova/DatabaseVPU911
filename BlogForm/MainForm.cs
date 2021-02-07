@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlogForm.Entities;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,13 @@ namespace BlogForm
         public MainForm()
         {
             InitializeComponent();
+            EFContext context = new EFContext();
+            Seeder.SeedDatabase(context);
+            var query = context.Posts.Include(x => x.Category).AsQueryable();
+
+            //context.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            //var sql = query.ToString();
+            var list = query.ToList();
         }
 
     }
