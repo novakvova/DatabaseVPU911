@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,16 +33,20 @@ namespace BlogForm
             var list = query.Select(x => new {
                 Id = x.Id,
                 Title = x.Title,
+                Image = x.Image,
                 CategoryName = x.Category.Name
             })
                 .AsQueryable().ToList();
 
             foreach (var item in list)
             {
-
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "images");
                 object[] row =
                 {
                     item.Id,
+                    ///Тернарний оператор C#, якщо фото немає, то буде null
+                    ///якщо фото є, то його вантажимо чере Image.FromFile
+                    item.Image==null ? null:Image.FromFile(Path.Combine(path, item.Image)),
                     item.Title,
                     item.CategoryName
                 };

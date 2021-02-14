@@ -31,6 +31,7 @@ namespace BlogForm
         {
             this.dgvPosts = new System.Windows.Forms.DataGridView();
             this.ColId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColImage = new System.Windows.Forms.DataGridViewImageColumn();
             this.ColText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -44,12 +45,14 @@ namespace BlogForm
             this.dgvPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColId,
+            this.ColImage,
             this.ColText,
             this.ColCategory});
             this.dgvPosts.Location = new System.Drawing.Point(32, 136);
             this.dgvPosts.Name = "dgvPosts";
             this.dgvPosts.ReadOnly = true;
-            this.dgvPosts.RowTemplate.Height = 25;
+            this.dgvPosts.RowHeadersWidth = 89;
+            this.dgvPosts.RowTemplate.Height = 55;
             this.dgvPosts.Size = new System.Drawing.Size(819, 282);
             this.dgvPosts.TabIndex = 0;
             // 
@@ -59,6 +62,12 @@ namespace BlogForm
             this.ColId.Name = "ColId";
             this.ColId.ReadOnly = true;
             this.ColId.Visible = false;
+            // 
+            // ColImage
+            // 
+            this.ColImage.HeaderText = "Фото";
+            this.ColImage.Name = "ColImage";
+            this.ColImage.ReadOnly = true;
             // 
             // ColText
             // 
@@ -103,6 +112,7 @@ namespace BlogForm
         private System.Windows.Forms.DataGridView dgvPosts;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColId;
+        private System.Windows.Forms.DataGridViewImageColumn ColImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColText;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCategory;
     }

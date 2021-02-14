@@ -34,6 +34,8 @@ namespace BlogForm
             this.label2 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.pbImage = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // cbCategory
@@ -75,7 +77,7 @@ namespace BlogForm
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(510, 328);
+            this.btnSave.Location = new System.Drawing.Point(510, 321);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(134, 46);
             this.btnSave.TabIndex = 3;
@@ -83,11 +85,22 @@ namespace BlogForm
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // pbImage
+            // 
+            this.pbImage.Location = new System.Drawing.Point(431, 100);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(213, 189);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 4;
+            this.pbImage.TabStop = false;
+            this.pbImage.Click += new System.EventHandler(this.pbImage_Click);
+            // 
             // EditPostForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 395);
+            this.Controls.Add(this.pbImage);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.label2);
@@ -96,6 +109,7 @@ namespace BlogForm
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "EditPostForm";
             this.Text = "Редагувати пост";
+            ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,5 +122,6 @@ namespace BlogForm
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.PictureBox pbImage;
     }
 }
