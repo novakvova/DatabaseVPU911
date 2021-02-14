@@ -16,5 +16,10 @@ namespace BlogForm.Entities
         [StringLength(4000)]
         public string Description { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

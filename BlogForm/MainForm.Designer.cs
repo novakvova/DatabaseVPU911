@@ -30,26 +30,49 @@ namespace BlogForm
         private void InitializeComponent()
         {
             this.dgvPosts = new System.Windows.Forms.DataGridView();
-            this.btnEdit = new System.Windows.Forms.Button();
             this.ColId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColCategory = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvPosts
             // 
             this.dgvPosts.AllowUserToAddRows = false;
+            this.dgvPosts.AllowUserToDeleteRows = false;
             this.dgvPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPosts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColId,
             this.ColText,
             this.ColCategory});
-            this.dgvPosts.Location = new System.Drawing.Point(32, 135);
+            this.dgvPosts.Location = new System.Drawing.Point(32, 136);
             this.dgvPosts.Name = "dgvPosts";
+            this.dgvPosts.ReadOnly = true;
             this.dgvPosts.RowTemplate.Height = 25;
-            this.dgvPosts.Size = new System.Drawing.Size(697, 274);
+            this.dgvPosts.Size = new System.Drawing.Size(819, 282);
             this.dgvPosts.TabIndex = 0;
+            // 
+            // ColId
+            // 
+            this.ColId.HeaderText = "Id";
+            this.ColId.Name = "ColId";
+            this.ColId.ReadOnly = true;
+            this.ColId.Visible = false;
+            // 
+            // ColText
+            // 
+            this.ColText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColText.HeaderText = "Назва";
+            this.ColText.Name = "ColText";
+            this.ColText.ReadOnly = true;
+            // 
+            // ColCategory
+            // 
+            this.ColCategory.HeaderText = "Категорія";
+            this.ColCategory.Name = "ColCategory";
+            this.ColCategory.ReadOnly = true;
+            this.ColCategory.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // btnEdit
             // 
@@ -60,25 +83,6 @@ namespace BlogForm
             this.btnEdit.Text = "Редагувати";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // ColId
-            // 
-            this.ColId.HeaderText = "Id";
-            this.ColId.Name = "ColId";
-            this.ColId.Visible = false;
-            // 
-            // ColText
-            // 
-            this.ColText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ColText.HeaderText = "Назва";
-            this.ColText.Name = "ColText";
-            // 
-            // ColCategory
-            // 
-            this.ColCategory.HeaderText = "Категорія";
-            this.ColCategory.Name = "ColCategory";
-            this.ColCategory.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColCategory.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // MainForm
             // 
@@ -100,7 +104,7 @@ namespace BlogForm
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColText;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ColCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColCategory;
     }
 }
 
