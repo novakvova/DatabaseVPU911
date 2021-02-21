@@ -50,6 +50,7 @@ namespace BlogForm
             this.tvBreed.Name = "tvBreed";
             this.tvBreed.Size = new System.Drawing.Size(419, 497);
             this.tvBreed.TabIndex = 0;
+            this.tvBreed.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvBreed_BeforeExpand);
             // 
             // BreedWorkingForm
             // 

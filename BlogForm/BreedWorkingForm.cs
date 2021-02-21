@@ -48,5 +48,39 @@ namespace BlogForm
             tvBreed.Nodes.Add(node);
             
         }
+        private void AddChild(TreeNode parent, BreedVM breed)
+        {
+            TreeNode node = new TreeNode();
+            node.Text = breed.Name;
+            node.Name = breed.Id.ToString();
+            node.Tag = breed;
+            node.Nodes.Add("");
+            parent.Nodes.Add(node);
+        }
+
+        private void tvBreed_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            if(e.Node.Nodes[0].Text=="")
+            {
+                var parent = e.Node;
+                var parentId = (parent.Tag as BreedVM).Id;
+                parent.Nodes.Clear();
+                var list = _context.Breeds
+                .Where(x => x.ParentId == parentId)
+                .Select(x => new BreedVM
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Image = x.Image,
+                    UrlSlug = x.UrlSlug
+                }).ToList();
+
+                foreach (var item in list)
+                {
+                    AddChild(parent, item);
+                }
+                MessageBox.Show(parentId.ToString());
+            }
+        }
     }
 }
