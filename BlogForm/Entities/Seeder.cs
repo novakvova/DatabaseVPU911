@@ -13,6 +13,7 @@ namespace BlogForm.Entities
             SeedTag(context);
             SeedPost(context);
             SeedTagPost(context);
+            SeedBreed(context);
         }
         private static void SeedCategory(EFContext context)
         {
@@ -119,5 +120,53 @@ namespace BlogForm.Entities
                 context.SaveChanges();
             }
         }
+
+        #region Сідимо категорії
+        private static void SeedBreed(EFContext context)
+        {
+            if (context.Breeds.Count() == 0)
+            {
+                string urlSlug = "computers-notebooks";
+                AddParent(context, urlSlug, "Ноутбуки та комп’ютери");
+                AddChildToParent(context, urlSlug, "notebooks", "Ноутбуки");
+                AddChildToParent(context, urlSlug, "computers", "Комп'ютери, неттопи, моноблоки");
+                AddChildToParent(context, urlSlug, "monitors", "Монітори");
+
+                urlSlug = "notebooks";
+                AddChildToParent(context, urlSlug, "gamming", "Ігрові");
+                AddChildToParent(context, urlSlug, "office", "Офісні");
+
+                urlSlug = "telefony-tv-i-ehlektronika";
+                AddParent(context, urlSlug, "Смартфони, ТВ і електроніка");
+                AddChildToParent(context, urlSlug, "phones-mp3-gps", "Телефони, навушники, GPS");
+                AddChildToParent(context, urlSlug, "tv-photo-video", "ТВ, Аудіо/Відео, Фото");
+            }
+        }
+        private static void AddParent(EFContext context, string urlSlug, string name)
+        {
+            context.Breeds.Add(new Breed
+            {
+                Name = name,
+                ParentId = null,
+                UrlSlug = urlSlug
+            });
+            context.SaveChanges();
+        }
+
+        private static void AddChildToParent(EFContext context, string parentSlug, string urlSlug, string name)
+        {
+            var parent = context.Breeds.SingleOrDefault(x => x.UrlSlug == parentSlug);
+            context.Breeds.Add(new Breed
+            {
+                Name = name,
+                ParentId = parent.Id,
+                UrlSlug = urlSlug
+            });
+            context.SaveChanges();
+        }
+
+
+
+        #endregion
     }
 }
