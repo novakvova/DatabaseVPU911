@@ -35,6 +35,7 @@ namespace BlogForm
             this.ColText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnWorkingTree = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,58 +49,79 @@ namespace BlogForm
             this.ColImage,
             this.ColText,
             this.ColCategory});
-            this.dgvPosts.Location = new System.Drawing.Point(32, 136);
+            this.dgvPosts.Location = new System.Drawing.Point(37, 181);
+            this.dgvPosts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvPosts.Name = "dgvPosts";
             this.dgvPosts.ReadOnly = true;
             this.dgvPosts.RowHeadersWidth = 89;
             this.dgvPosts.RowTemplate.Height = 55;
-            this.dgvPosts.Size = new System.Drawing.Size(819, 282);
+            this.dgvPosts.Size = new System.Drawing.Size(936, 376);
             this.dgvPosts.TabIndex = 0;
             // 
             // ColId
             // 
             this.ColId.HeaderText = "Id";
+            this.ColId.MinimumWidth = 6;
             this.ColId.Name = "ColId";
             this.ColId.ReadOnly = true;
             this.ColId.Visible = false;
+            this.ColId.Width = 125;
             // 
             // ColImage
             // 
             this.ColImage.HeaderText = "Фото";
+            this.ColImage.MinimumWidth = 6;
             this.ColImage.Name = "ColImage";
             this.ColImage.ReadOnly = true;
+            this.ColImage.Width = 125;
             // 
             // ColText
             // 
             this.ColText.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColText.HeaderText = "Назва";
+            this.ColText.MinimumWidth = 6;
             this.ColText.Name = "ColText";
             this.ColText.ReadOnly = true;
             // 
             // ColCategory
             // 
             this.ColCategory.HeaderText = "Категорія";
+            this.ColCategory.MinimumWidth = 6;
             this.ColCategory.Name = "ColCategory";
             this.ColCategory.ReadOnly = true;
             this.ColCategory.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColCategory.Width = 125;
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(32, 454);
+            this.btnEdit.Location = new System.Drawing.Point(37, 605);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(116, 41);
+            this.btnEdit.Size = new System.Drawing.Size(133, 55);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Редагувати";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // btnWorkingTree
+            // 
+            this.btnWorkingTree.Location = new System.Drawing.Point(850, 21);
+            this.btnWorkingTree.Name = "btnWorkingTree";
+            this.btnWorkingTree.Size = new System.Drawing.Size(123, 49);
+            this.btnWorkingTree.TabIndex = 2;
+            this.btnWorkingTree.Text = "Дерево";
+            this.btnWorkingTree.UseVisualStyleBackColor = true;
+            this.btnWorkingTree.Click += new System.EventHandler(this.btnWorkingTree_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 557);
+            this.ClientSize = new System.Drawing.Size(1008, 743);
+            this.Controls.Add(this.btnWorkingTree);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.dgvPosts);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "Привіт козак";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).EndInit();
@@ -115,6 +137,7 @@ namespace BlogForm
         private System.Windows.Forms.DataGridViewImageColumn ColImage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColText;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCategory;
+        private System.Windows.Forms.Button btnWorkingTree;
     }
 }
 

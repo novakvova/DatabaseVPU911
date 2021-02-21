@@ -1,4 +1,6 @@
 ﻿using BlogForm.Entities;
+using BlogForm.Helpers;
+using BlogForm.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,36 +27,50 @@ namespace BlogForm
         }
         private void loadFromData()
         {
-            dgvPosts.Rows.Clear();
-            var query = _context.Posts
-               //.Include(x => x.Category)
-               .AsQueryable();
+            ///dgvPosts.Rows.Clear();
+            ///var query = _context.Posts
+            ///   //.Include(x => x.Category)
+            ///   .AsQueryable();
+            ///
+            ///var list = query.Select(x => new {
+            ///    Id = x.Id,
+            ///    Title = x.Title,
+            ///    Image = x.Image,
+            ///    CategoryName = x.Category.Name
+            ///})
+            ///    .AsQueryable().ToList();
+            ///
+            ///foreach (var item in list)
+            ///{
+            ///    string path = Path.Combine(Directory.GetCurrentDirectory(), "images");
+            ///    object[] row =
+            ///    {
+            ///        item.Id,
+            ///        ///Тернарний оператор C#, якщо фото немає, то буде null
+            ///        ///якщо фото є, то його вантажимо чере Image.FromFile
+            ///        item.Image==null, //? null:Image.FromFile(Path.Combine(path, item.Image)),
+            ///        item.Title,
+            ///        item.CategoryName
+            ///    };
+            ///    dgvPosts.Rows
+            ///        .Add(row);
+            ///
+            ///}
 
-            var list = query.Select(x => new {
-                Id = x.Id,
-                Title = x.Title,
-                Image = x.Image,
-                CategoryName = x.Category.Name
-            })
-                .AsQueryable().ToList();
+            #region Begin work Breed
 
-            foreach (var item in list)
+            var categories = _context.Breeds.Select(ic => new BreedGroupVM
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                object[] row =
-                {
-                    item.Id,
-                    ///Тернарний оператор C#, якщо фото немає, то буде null
-                    ///якщо фото є, то його вантажимо чере Image.FromFile
-                    item.Image==null ? null:Image.FromFile(Path.Combine(path, item.Image)),
-                    item.Title,
-                    item.CategoryName
-                };
-                dgvPosts.Rows
-                    .Add(row);
+                Id = ic.Id,
+                Name = ic.Name,
+                UrlSlug = ic.UrlSlug,
+                ParentId = ic.ParentId
+            }).ToList();
 
-            }
-            
+            var tree = categories.BuildTree(); //Зробити дерево
+
+            #endregion
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -68,6 +84,12 @@ namespace BlogForm
                     loadFromData();
                 }
             }
+        }
+
+        private void btnWorkingTree_Click(object sender, EventArgs e)
+        {
+            BreedWorkingForm dlg = new BreedWorkingForm(_context);
+            dlg.ShowDialog();
         }
     }
 }
