@@ -91,5 +91,11 @@ namespace BlogForm
             BreedWorkingForm dlg = new BreedWorkingForm(_context);
             dlg.ShowDialog();
         }
+
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            FilterTestForm dlg = new FilterTestForm(_context);
+            dlg.ShowDialog();
+        }
     }
 }

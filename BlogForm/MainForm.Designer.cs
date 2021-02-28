@@ -36,6 +36,7 @@ namespace BlogForm
             this.ColCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnWorkingTree = new System.Windows.Forms.Button();
+            this.btnFind = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,13 +50,12 @@ namespace BlogForm
             this.ColImage,
             this.ColText,
             this.ColCategory});
-            this.dgvPosts.Location = new System.Drawing.Point(37, 181);
-            this.dgvPosts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dgvPosts.Location = new System.Drawing.Point(32, 136);
             this.dgvPosts.Name = "dgvPosts";
             this.dgvPosts.ReadOnly = true;
             this.dgvPosts.RowHeadersWidth = 89;
             this.dgvPosts.RowTemplate.Height = 55;
-            this.dgvPosts.Size = new System.Drawing.Size(936, 376);
+            this.dgvPosts.Size = new System.Drawing.Size(819, 282);
             this.dgvPosts.TabIndex = 0;
             // 
             // ColId
@@ -94,10 +94,9 @@ namespace BlogForm
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(37, 605);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEdit.Location = new System.Drawing.Point(32, 454);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(133, 55);
+            this.btnEdit.Size = new System.Drawing.Size(116, 41);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Редагувати";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -105,23 +104,34 @@ namespace BlogForm
             // 
             // btnWorkingTree
             // 
-            this.btnWorkingTree.Location = new System.Drawing.Point(850, 21);
+            this.btnWorkingTree.Location = new System.Drawing.Point(744, 16);
+            this.btnWorkingTree.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnWorkingTree.Name = "btnWorkingTree";
-            this.btnWorkingTree.Size = new System.Drawing.Size(123, 49);
+            this.btnWorkingTree.Size = new System.Drawing.Size(108, 37);
             this.btnWorkingTree.TabIndex = 2;
             this.btnWorkingTree.Text = "Дерево";
             this.btnWorkingTree.UseVisualStyleBackColor = true;
             this.btnWorkingTree.Click += new System.EventHandler(this.btnWorkingTree_Click);
             // 
+            // btnFind
+            // 
+            this.btnFind.Location = new System.Drawing.Point(399, 16);
+            this.btnFind.Name = "btnFind";
+            this.btnFind.Size = new System.Drawing.Size(97, 37);
+            this.btnFind.TabIndex = 3;
+            this.btnFind.Text = "Пошук";
+            this.btnFind.UseVisualStyleBackColor = true;
+            this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 743);
+            this.ClientSize = new System.Drawing.Size(882, 557);
+            this.Controls.Add(this.btnFind);
             this.Controls.Add(this.btnWorkingTree);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.dgvPosts);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "Привіт козак";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosts)).EndInit();
@@ -138,6 +148,7 @@ namespace BlogForm
         private System.Windows.Forms.DataGridViewTextBoxColumn ColText;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColCategory;
         private System.Windows.Forms.Button btnWorkingTree;
+        private System.Windows.Forms.Button btnFind;
     }
 }
 
