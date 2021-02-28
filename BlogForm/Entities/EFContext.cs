@@ -12,6 +12,7 @@ namespace BlogForm.Entities
         public DbSet<Post> Posts { get; set; }
         public DbSet<TagPost> TagPosts { get; set; }
         public DbSet<Breed> Breeds { get; set; }
+        public DbSet<FilterName> FilterNames { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
