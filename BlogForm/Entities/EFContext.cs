@@ -12,8 +12,10 @@ namespace BlogForm.Entities
         public DbSet<Post> Posts { get; set; }
         public DbSet<TagPost> TagPosts { get; set; }
         public DbSet<Breed> Breeds { get; set; }
+
         public DbSet<FilterName> FilterNames { get; set; }
         public DbSet<FilterValue> FilterValues { get; set; }
+        public DbSet<FilterNameGroup> FilterNameGroups { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,6 +41,22 @@ namespace BlogForm.Entities
                     .HasForeignKey(tp => tp.PostId)
                     .IsRequired();
             });
+
+            modelBuilder.Entity<FilterNameGroup>(filterNG =>
+            {
+                filterNG.HasKey(f => new { f.FilterValueId, f.FilterNameId });
+
+                filterNG.HasOne(ur => ur.FilterNameOf)
+                    .WithMany(r => r.FilterNameGroups)
+                    .HasForeignKey(ur => ur.FilterNameId)
+                    .IsRequired();
+
+                filterNG.HasOne(ur => ur.FilterValueOf)
+                    .WithMany(r => r.FilterNameGroups)
+                    .HasForeignKey(ur => ur.FilterValueId)
+                    .IsRequired();
+            });
+
         }
     }
 }

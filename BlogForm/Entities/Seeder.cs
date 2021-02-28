@@ -175,7 +175,7 @@ namespace BlogForm.Entities
         private static void SeedFilter(EFContext context)
         {
             #region tblFilterNames - Назви фільтрів
-            string[] filterNames = { "Виробник", "Діагональ екрана" };
+            string[] filterNames = { "Виробник", "Діагональ екрана", "Процесор" };
             foreach (var type in filterNames)
             {
                 if (context.FilterNames.SingleOrDefault(f => f.Name == type) == null)
@@ -193,8 +193,8 @@ namespace BlogForm.Entities
             #region tblFilterValues - Значення фільтрів
             List<string[]> filterValues = new List<string[]> {
                 new string [] { "HP", "Dell", "Apple" },
-                new string [] { "13\"", "14\"", "15\"-15.6\"", "16\"-17\"" }
-
+                new string [] { "13\"", "14\"", "15\"-15.6\"", "16\"-17\"" },
+                new string [] { "Intel Core i5", "Intel Core i7", "AMD Ryzen 9" }
             };
 
             foreach (var items in filterValues)
@@ -215,7 +215,34 @@ namespace BlogForm.Entities
             }
             #endregion
 
+            #region Групування фільтрів
 
+            for (int i = 0; i < filterNames.Length; i++)
+            {
+                foreach (var value in filterValues[i])
+                {
+                    var nId = context.FilterNames
+                        .SingleOrDefault(ben => ben.Name == filterNames[i]).Id;
+                    var vId = context.FilterValues
+                        .SingleOrDefault(f => f.Name == value).Id;
+                    if (context.FilterNameGroups
+                        .SingleOrDefault(f => f.FilterValueId == vId &&
+                        f.FilterNameId == nId) == null)
+                    {
+                        context.FilterNameGroups.Add(
+                            new FilterNameGroup
+                            {
+                                FilterNameId = nId,
+                                FilterValueId = vId
+                            });
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            #endregion
+        
+        
         }
 
 

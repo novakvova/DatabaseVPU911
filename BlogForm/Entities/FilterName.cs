@@ -13,6 +13,7 @@ namespace BlogForm.Entities
         public int Id { get; set; }
         [Required, StringLength(250)]
         public string Name { get; set; }
+        public virtual ICollection<FilterNameGroup> FilterNameGroups { get; set; }
 
     }
 }
