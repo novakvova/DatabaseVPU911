@@ -169,6 +169,20 @@ namespace BlogForm
             }
         }
 
-
+        private void btnFind_Click(object sender, EventArgs e)
+        {
+            //Збираємо значення фільтрів
+            List<int> values = new List<int>();
+            var listGB = this.Controls.OfType<GroupBox>();
+            foreach(var groupBox in listGB)
+            {
+                var checkedItem =  groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault().CheckedItems;
+                foreach(var listItem in checkedItem)
+                {
+                    var data =  listItem as FilterValueModel;
+                    values.Add(data.Id);
+                }
+            }
+        }
     }
 }

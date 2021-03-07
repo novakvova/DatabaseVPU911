@@ -14,6 +14,7 @@ namespace BlogForm.Entities
         [Required, StringLength(250)]
         public string Name { get; set; }
         public virtual ICollection<FilterNameGroup> FilterNameGroups { get; set; }
+        public virtual ICollection<Filter> Filters { get; set; }
 
     }
 }

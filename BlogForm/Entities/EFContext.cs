@@ -17,6 +17,9 @@ namespace BlogForm.Entities
         public DbSet<FilterValue> FilterValues { get; set; }
         public DbSet<FilterNameGroup> FilterNameGroups { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Filter> Filters { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Server=91.238.103.51;Port=5743;Database=dbblog;Username=userblog;Password=$544idkeuIDOKEKDds(Kdues9dfsuiio$B5rd@dddss542G)K$t!Ube22}xk");
@@ -54,6 +57,26 @@ namespace BlogForm.Entities
                 filterNG.HasOne(ur => ur.FilterValueOf)
                     .WithMany(r => r.FilterNameGroups)
                     .HasForeignKey(ur => ur.FilterValueId)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<Filter>(filter =>
+            {
+                filter.HasKey(f => new { f.ProductId, f.FilterValueId, f.FilterNameId });
+
+                filter.HasOne(ur => ur.FilterNameOf)
+                    .WithMany(r => r.Filters)
+                    .HasForeignKey(ur => ur.FilterNameId)
+                    .IsRequired();
+
+                filter.HasOne(ur => ur.FilterValueOf)
+                    .WithMany(r => r.Filters)
+                    .HasForeignKey(ur => ur.FilterValueId)
+                    .IsRequired();
+
+                filter.HasOne(ur => ur.ProductOf)
+                    .WithMany(r => r.Filters)
+                    .HasForeignKey(ur => ur.ProductId)
                     .IsRequired();
             });
 

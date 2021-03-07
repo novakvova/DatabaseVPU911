@@ -3,15 +3,17 @@ using System;
 using BlogForm.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BlogForm.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20210307095321_Add tblProducts")]
+    partial class AddtblProducts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,26 +70,6 @@ namespace BlogForm.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tblCategories");
-                });
-
-            modelBuilder.Entity("BlogForm.Entities.Filter", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FilterValueId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FilterNameId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ProductId", "FilterValueId", "FilterNameId");
-
-                    b.HasIndex("FilterNameId");
-
-                    b.HasIndex("FilterValueId");
-
-                    b.ToTable("tblFilters");
                 });
 
             modelBuilder.Entity("BlogForm.Entities.FilterName", b =>
@@ -240,27 +222,6 @@ namespace BlogForm.Migrations
                     b.HasOne("BlogForm.Entities.Breed", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId");
-                });
-
-            modelBuilder.Entity("BlogForm.Entities.Filter", b =>
-                {
-                    b.HasOne("BlogForm.Entities.FilterName", "FilterNameOf")
-                        .WithMany("Filters")
-                        .HasForeignKey("FilterNameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlogForm.Entities.FilterValue", "FilterValueOf")
-                        .WithMany("Filters")
-                        .HasForeignKey("FilterValueId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BlogForm.Entities.Product", "ProductOf")
-                        .WithMany("Filters")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BlogForm.Entities.FilterNameGroup", b =>

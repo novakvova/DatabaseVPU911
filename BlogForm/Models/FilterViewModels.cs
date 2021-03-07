@@ -9,6 +9,10 @@ namespace BlogForm.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsChecked { get; set; } = false;
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
     }
     public class FilterNameModel
     {
