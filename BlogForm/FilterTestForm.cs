@@ -14,310 +14,160 @@ namespace BlogForm
     public partial class FilterTestForm : Form
     {
         private readonly EFContext _context;
-        public IQueryable<FilterName> filter { get; set; }
-
-        /// <summary>
-        /// Точка відліку для першого графічного елемента (відступ по осі Х)
-        /// </summary>
-        const int startX = 15;
-
-        /// <summary>
-        /// Точка відліку для першого графічного елемента (відступ по осі У)
-        /// </summary>
-        const int startY = 15;
-
-        /// <summary>
-        /// Інтервал між графічними елементами в пікселях
-        /// </summary>
-        const int interval = 8;
-
-        /// <summary>
-        /// Висота одного чекбокса
-        /// </summary>
-        const int checkBoxHeight = 15;
-
-        /// <summary>
-        /// Зміщення по осі У для першого фільтра
-        /// </summary>
-        public int dy1 { get; set; }
-
-        /// <summary>
-        /// Зміщення по осі У для другого фільтра
-        /// </summary>
-        public int dy2 { get; set; }
-
-        /// <summary>
-        /// Кількість дітей першого фільтра
-        /// </summary>
-        public int CountOfBrands { get; set; }
-
-        /// <summary>
-        /// Кількість дітей першого фільтра
-        /// </summary>
-        public int CountOfPowers { get; set; }
-
+        
         public FilterTestForm(EFContext context)
         {
             InitializeComponent();
             _context = context;
+           
+        }
+
+        private void FilterTestForm_Load(object sender, EventArgs e)
+        {
+            
+            this.AutoScroll = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+
+
             Seeder.SeedDatabase(_context);
-            LoadForm();
+            var filters = GetFilterNameModels();
+            FillCheckedList(filters);
         }
-        private void LoadForm()
+
+        private IEnumerable<FilterNameModel> GetFilterNameModels()
         {
-            GetListFilters();
+            List<FilterNameModel> filterNameModels = new List<FilterNameModel>();
+            //  Витягуємо елементи FilterName з БД
+            var filterNames = from x in this._context.FilterNames.AsQueryable() select x;
+            //  Витягуємо елементи FilterNameValue з БД
+            var filterNameValue = from x in this._context.FilterNameGroups.AsQueryable() select x;
 
-            // Виводимо кнопки для фільтра брендів і для його очищення
-            btnFilterBrand.Location = new Point(startX, startY);
-            btnClosedBrand.Location = new Point(startX + btnFilterBrand.Width + interval, startY);
+            var joinedCollection = (from name in filterNames    //  Вибірка усіх елементів FilterName З колекції
+                                                                //  Join елементів по Id N-ного елемента і FilterNameId проміжної таблички
+                                    join nameValue in filterNameValue on name.Id equals
+                                    //  Запис данних у згруповану колекцію oneElementJoinedColl
+                                    nameValue.FilterNameId into oneElementJoinedColl
+                                    //  Проходження по новій колекції і формування анонімних обєктів
+                                    from v in oneElementJoinedColl
+                                    select new
+                                    {
+                                        FilterName = name.Name,
+                                        FilterNameId = name.Id,
+                                        FilterValue = v.FilterValueOf.Name,
+                                        FilterValueId = v.FilterValueId
+                                        // Приведення до типу AsEnumerable
+                                    }).AsEnumerable();
 
-            // Виводимо панель фільтрів по бренду
-            pnlFilterBrand.Location = new Point(startX, startY + btnFilterBrand.Height + interval / 2);
-            pnlFilterBrand.Height = 0;
+            //  Вибірка елементів з колекції joinedCollection
+            var groupsFilters = from x in joinedCollection
+                                    //  Групування данних за ідентифікатором та назвою фільтра і переміщення нової
+                                    //  колекції IGrouping до змінної newIGroupingCollection
+                                group x by new { x.FilterNameId, x.FilterName } into newIGroupingCollection
+                                //  Сортування нової колекції за іменем за спаданням
+                                orderby newIGroupingCollection.Key.FilterName descending
+                                //  Повернення колекції(груп)
+                                select newIGroupingCollection;
 
-            // Виводимо кнопки для фільтра по потужності і для його очищення
-            btnFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height + interval);
-            btnClosedPower.Location = new Point(startX + btnFilterPower.Width + interval,
-                startY + btnClosedBrand.Height + interval);
-
-            // Виводимо панель фільтрів по потужності
-            pnlFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height
-                + interval + btnFilterPower.Height + interval / 2);
-            pnlFilterPower.Height = 0;
-
-
-        }
-        /// <summary>
-        /// Зсунення вниз кнопки Потужність
-        /// </summary>
-        /// <param name="move"></param>
-        private void MoveFilterPower(bool move)
-        {
-            // Якщо передаємо в параметрі тру, то зсовуємо кнопку вниз
-            if (move)
+            foreach (var item in groupsFilters)
             {
-                btnFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height + interval + pnlFilterBrand.Height);
-                btnClosedPower.Location = new Point(startX + btnFilterPower.Width + interval, startY + btnClosedBrand.Height + interval + pnlFilterBrand.Height);
-                pnlFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height + interval + pnlFilterBrand.Height + btnFilterPower.Height + interval / 2);
-                pnlFilterPower.Height = 0;
+                //  Створення нової моделі де зберігаються дані про фільтр
+                //  та його формуються його дочірні елементи
+                FilterNameModel model = new FilterNameModel
+                {
+                    Id = item.Key.FilterNameId,
+                    Name = item.Key.FilterName,
+                    Children = item.Select(x => new FilterValueModel
+                    {
+                        Name = x.FilterValue,
+                        Id = x.FilterValueId
+                    }).ToList()
+                };
+                //  Додавання до колекції фільтрів нову модель
+                filterNameModels.Add(model);
             }
-            // інакше лишаємо її на місці
+
+
+
+            return filterNameModels;
+        }
+
+        private void FillCheckedList(IEnumerable<FilterNameModel> models)
+        {
+            GroupBox gbFilter;
+            CheckedListBox listBox;
+            int dy = 13;
+            foreach (var item in models)
+            {
+                gbFilter = new System.Windows.Forms.GroupBox();
+                listBox = new System.Windows.Forms.CheckedListBox();
+                gbFilter.SuspendLayout();
+                // 
+                // gbFilter
+                // 
+                gbFilter.Controls.Add(listBox);
+                gbFilter.Location = new System.Drawing.Point(13, dy);
+                gbFilter.Name = $"gbFilter{item.Id}";
+                gbFilter.Size = new System.Drawing.Size(222, 217);
+                gbFilter.TabIndex = 0;
+                gbFilter.TabStop = false;
+                gbFilter.Text = item.Name;
+                gbFilter.ForeColor = Color.Red;
+                gbFilter.Tag = item;
+                gbFilter.Click += new EventHandler(GbFilter_Click);
+                // 
+                // listBox
+                // 
+                listBox.FormattingEnabled = true;
+                listBox.Location = new System.Drawing.Point(0, 30);
+                listBox.Name = $"listBox{item.Id}";
+                listBox.Width = 208;
+                listBox.TabIndex = 0;
+
+                foreach (var child in item.Children)
+                {
+                    listBox.Items.Add(child);
+                }
+
+                gbFilter.Size = new Size(listBox.Size.Width, listBox.Size.Height + 30);
+                dy += gbFilter.Size.Height + 10;
+                this.Controls.Add(gbFilter);
+
+            }
+        }
+
+        private void GbFilter_Click(object sender, EventArgs e)
+        {
+            var groupBox = (sender as GroupBox);
+            var FilterName = groupBox.Tag as FilterNameModel;
+            if (FilterName.IsCollapsed)
+            {
+                FilterName.IsCollapsed = false;
+            }
             else
             {
-                btnFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height + interval);
-                btnClosedPower.Location = new Point(startX + btnFilterPower.Width + interval, startY + btnClosedBrand.Height + interval);
-                pnlFilterPower.Location = new Point(startX, startY + btnFilterBrand.Height + interval + btnFilterPower.Height + interval / 2);
-                pnlFilterPower.Height = 0;
+                FilterName.IsCollapsed = true;
+
             }
 
+            var checkedList = groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault();
+
+            checkedList.Visible = FilterName.IsCollapsed;
+            var Height = FilterName.IsCollapsed == true ? checkedList.Height + 30 : 30;
+            groupBox.Height = Height;
+
+            ShowAllGroups(this.Controls.OfType<GroupBox>());
+
         }
-        private void btnFilterBrand_Click(object sender, EventArgs e)
+
+        private void ShowAllGroups(IEnumerable<GroupBox> groupBoxes)
         {
-            // Очищаємо панель чекбоксів
-            pnlFilterBrand.Controls.Clear();
-            // Перший чекбокс буде виводитись з нульової позиції
-            dy1 = 0;
-            // Отримуємо з БД список значень по даному фільтру
-            List<string> checksBrand = new List<string>();
-            var filters = GetListFilters();
-            var result = from x in filters
-                         where x.Name == btnFilterBrand.Text
-                         select x.Children;
-            foreach (var item in result)
+            int dy = 13;
+            foreach (var box in groupBoxes)
             {
-                foreach (var it in item)
-                {
-                    checksBrand.Add(it.Value);
-                }
+                box.Location = new Point(box.Location.X, dy);
+                dy += box.Size.Height + 10;
             }
-            // Отримуємо кількість значень по фільтру
-            CountOfBrands = checksBrand.Count();
-            // Задаємо висоту панелі виведення чекбоксів
-            pnlFilterBrand.Height = 2 * checkBoxHeight * (CountOfBrands - 1)
-                + interval + btnSaveChoiceBrand.Height;
-            // Виводимо чекбокси
-            foreach (var item in checksBrand)
-            {
-                CheckBox chb = new CheckBox();
-                chb.AutoSize = true;
-                chb.Location = new System.Drawing.Point(1, dy1);
-                chb.Size = new System.Drawing.Size(82, checkBoxHeight);
-                chb.Text = item.ToString();
-                chb.UseVisualStyleBackColor = true;
-                pnlFilterBrand.Controls.Add(chb);
-                // Зміщуємо виведення наступного чекбокса на його висоту + інтервал
-                dy1 = dy1 + checkBoxHeight + interval;
-            }
-            // Відображуємо кнопку Застосувати фільтр 
-            btnSaveChoiceBrand.Visible = true;
-            btnSaveChoiceBrand.Location = new Point(0, 2 * checkBoxHeight * (CountOfBrands - 1));
-            pnlFilterBrand.Controls.Add(btnSaveChoiceBrand);
-            // Зсовуємо наступну кнопку вниз
-            MoveFilterPower(true);
         }
-        private void btnClosedBrand_Click(object sender, EventArgs e)
-        {
-            // Очищуємо панель з чекбоксами
-            pnlFilterBrand.Controls.Clear();
-            // Ховаємо панель чекбоксів
-            pnlFilterBrand.Height = 0;
-            // Підтягуємо наступну кнопку назад
-            MoveFilterPower(false);
-        }
-        private void btnFilterPower_Click(object sender, EventArgs e)
-        {
-            // Очищаємо панель чекбоксів
-            pnlFilterPower.Controls.Clear();
-            // Перший чекбокс буде виводитись з нульової позиції
-            dy2 = 0;
-            // Отримуємо з БД список значень по даному фільтру
-            List<string> checksPower = new List<string>();
-            var filters = GetListFilters();
-            var result = from x in filters
-                         where x.Name == btnFilterPower.Text
-                         select x.Children;
-            foreach (var items in result)
-            {
-                foreach (var it in items)
-                {
-                    checksPower.Add(it.Value);
-                }
-            }
-            // Отримуємо кількість значень по фільтру
-            CountOfPowers = checksPower.Count();
-            // Задаємо висоту панелі виведення чекбоксів
-            pnlFilterPower.Height = 2 * checkBoxHeight * (CountOfPowers - 1)
-                + interval + btnSaveChoicePower.Height;
-            // Виводимо чекбокси
-            foreach (var item in checksPower)
-            {
-                CheckBox chb = new CheckBox();
-                chb.AutoSize = true;
-                chb.Location = new System.Drawing.Point(1, dy2);
-                chb.Size = new System.Drawing.Size(82, checkBoxHeight);
-                chb.Text = item.ToString();
-                chb.UseVisualStyleBackColor = true;
-                pnlFilterPower.Controls.Add(chb);
-                // Зміщуємо виведення наступного чекбокса на його висоту + інтервал
-                dy2 = dy2 + checkBoxHeight + interval;
-            }
-            // Відображуємо кнопку Застосувати фільтр 
-            btnSaveChoicePower.Visible = true;
-            btnSaveChoicePower.Location = new Point(0, 2 * checkBoxHeight * (CountOfPowers - 1));
-            pnlFilterPower.Controls.Add(btnSaveChoicePower);
-        }
-        private void btnClosedPower_Click(object sender, EventArgs e)
-        {
-            // Очищуємо панель з чекбоксами
-            pnlFilterPower.Controls.Clear();
-            // Ховаємо панель чекбоксів
-            pnlFilterPower.Height = 0;
-        }
-        private List<FNameViewModel> GetListFilters()
-        {
-            var queryName = from f in _context.FilterNames.AsQueryable()
-                            select f;
-            var queryGroup = from g in _context.FilterNameGroups.AsQueryable()
-                             select g;
-            //Отримуємо загальну множину значень
-            var query = from u in queryName
-                        join g in queryGroup on u.Id equals g.FilterNameId into ua
-                        from aEmp in ua.DefaultIfEmpty()
-                        select new
-                        {
-                            FNameId = u.Id,
-                            FName = u.Name,
-                            FValueId = aEmp != null ? aEmp.FilterValueId : 0,
-                            FValue = aEmp != null ? aEmp.FilterValueOf.Name : null,
-                        };
-
-            //Групуємо по іменам і сортуємо по спаданню імен
-            var groupNames = query.AsEnumerable()
-                      .GroupBy(f => new { Id = f.FNameId, Name = f.FName })
-                      .Select(g => g)
-                      .OrderByDescending(p => p.Key.Name);
-
-            //По групах отримуємо
-            var result = from fName in groupNames
-                         select
-                         new FNameViewModel
-                         {
-                             Id = fName.Key.Id,
-                             Name = fName.Key.Name,
-                             Children = fName.Select(x =>
-                                   new FValueViewModel
-                                   {
-                                       Id = x.FValueId,
-                                       Value = x.FValue
-                                   }).OrderBy(l => l.Value).ToList()
-                         };
-
-            return result.ToList();
-        }
-        /// <summary>
-        /// Додавання значення в фільтр
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnAddFilterValue_Click(object sender, EventArgs e)
-        {
-            new AddValueForm(_context).ShowDialog();
-        }
-
-
-
-        //private readonly EFContext _context;
-        //public FilterTestForm(EFContext context)
-        //{
-        //    InitializeComponent();
-        //    _context = context;
-        //    var filters = GetListFilters();
-        //}
-
-        //private List<FNameViewModel> GetListFilters()
-        //{
-        //    var queryName = from f in _context.FilterNames.AsQueryable()
-        //                    select f;
-        //    var queryGroup = from g in _context.FilterNameGroups.AsQueryable()
-        //                     select g;
-        //    //Отримуємо загальну множину значень
-        //    var query = from u in queryName
-        //                join g in queryGroup on u.Id equals g.FilterNameId into ua
-        //                from aEmp in ua.DefaultIfEmpty()
-        //                select new
-        //                {
-        //                    FNameId = u.Id,
-        //                    FName = u.Name,
-        //                    FValueId = aEmp != null ? aEmp.FilterValueId : 0,
-        //                    FValue = aEmp != null ? aEmp.FilterValueOf.Name : null,
-        //                };
-
-
-        //    //Групуємо по іменам і сортуємо по спаданню імен
-
-        //    var groupNames = query.AsEnumerable()
-        //              .GroupBy(f => new { Id = f.FNameId, Name = f.FName })
-        //              .Select(g => g)
-        //              .OrderByDescending(p => p.Key.Name);
-
-        //    //По групах отримуємо
-        //    var result = from fName in groupNames
-        //                 select
-        //                 new FNameViewModel
-        //                 {
-        //                     Id = fName.Key.Id,
-        //                     Name = fName.Key.Name,
-        //                     Children =  fName.Select(x=>
-        //                            new FValueViewModel {
-        //                                Id=x.FValueId,
-        //                                Value=x.FValue
-        //                     }).OrderBy(l=>l.Value).ToList()
-
-        //                 };
-
-        //    return result.ToList();
-
-        //}
 
 
     }
