@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using BlogForm.Helpers;
 
 namespace BlogForm
 {
@@ -174,14 +175,56 @@ namespace BlogForm
             //Збираємо значення фільтрів
             List<int> values = new List<int>();
             var listGB = this.Controls.OfType<GroupBox>();
-            foreach(var groupBox in listGB)
+            foreach (var groupBox in listGB)
             {
-                var checkedItem =  groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault().CheckedItems;
-                foreach(var listItem in checkedItem)
+                var checkedItem = groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault().CheckedItems;
+                foreach (var listItem in checkedItem)
                 {
-                    var data =  listItem as FilterValueModel;
+                    var data = listItem as FilterValueModel;
                     values.Add(data.Id);
                 }
+            }
+            var filtersList = GetFilterNameModels();
+            int[] filterValueSearchList = values.ToArray();
+
+            var query = _context
+                    .Products
+                    .AsQueryable();
+
+            foreach (var fName in filtersList)
+            {
+                int countFilter = 0; //Кількість співпадінь у даній групі фільтрів
+                var predicate = PredicateBuilder.False<Product>();
+                foreach (var fValue in fName.Children)
+                {
+                    for (int i = 0; i < filterValueSearchList.Length; i++)
+                    {
+                        var idV = fValue.Id; //id - значення фільтра
+                        if (filterValueSearchList[i] == idV) //маємо співпадіння
+                        {
+                            predicate = predicate
+                                .Or(p => p.Filters
+                                    .Any(f => f.FilterValueId == idV));
+                            countFilter++;
+                        }
+                    }
+                }
+                if (countFilter != 0)
+                    query = query.Where(predicate);
+            }
+
+            var listProduct = query.ToList();
+            dgvProducts.Rows.Clear();
+            foreach (var p in listProduct)
+            {
+                object [] row =
+                {
+                    p.Id,
+                    null,
+                    p.Name,
+                    p.Price
+                };
+                dgvProducts.Rows.Add(row);
             }
         }
     }
